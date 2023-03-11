@@ -1,0 +1,1 @@
+dbc/tech_talks/image_processing_on_delta_lake/

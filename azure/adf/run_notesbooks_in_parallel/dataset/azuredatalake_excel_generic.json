@@ -1,0 +1,48 @@
+{
+    "name": "AzureDataLake_Excel_Generic",
+    "properties": {
+        "linkedServiceName": {
+            "referenceName": "AzureDataLakeStorage",
+            "type": "LinkedServiceReference",
+            "parameters": {
+                "StorageAccountURL": "https://dianrandddatalake.dfs.core.windows.net/"
+            }
+        },
+        "parameters": {
+            "FileSystem": {
+                "type": "string",
+                "defaultValue": "config"
+            },
+            "Directory": {
+                "type": "string",
+                "defaultValue": "DataFactoryConfig"
+            },
+            "FileName": {
+                "type": "string",
+                "defaultValue": "DataFactory_DatabricksNotebooks_ConfigList.xlsx"
+            }
+        },
+        "annotations": [],
+        "type": "Excel",
+        "typeProperties": {
+            "location": {
+                "type": "AzureBlobFSLocation",
+                "fileName": {
+                    "value": "@dataset().FileName",
+                    "type": "Expression"
+                },
+                "folderPath": {
+                    "value": "@dataset().Directory",
+                    "type": "Expression"
+                },
+                "fileSystem": {
+                    "value": "@dataset().FileSystem",
+                    "type": "Expression"
+                }
+            },
+            "sheetIndex": 0,
+            "firstRowAsHeader": true
+        },
+        "schema": []
+    }
+}

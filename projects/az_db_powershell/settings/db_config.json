@@ -1,0 +1,15 @@
+{
+    "DATABRICKS_CLUSTER_NAME": "aml-cluster",
+    "DATABRICKS_FILE_FORMAT": "DBC",
+    "DATABRICKS_FILE_LANGUAGE": "PYTHON",
+    "DATABRICKS_NODE_TYPE": "Standard_D3_v2",
+    "DATABRICKS_NUM_WORKERS": 2,
+    "DATABRICKS_SECRETS_SCOPE": "my-secrets",
+    "DATABRICKS_SPARK_VERSION": "6.4.x-scala2.11",
+    "DATABRICKS_WS_NOTEBOOKS_PATH": "/Users/algonzalez@plainconcepts.com/",
+    "DATABRICKS_WS_SHARED": "/Shared/",
+    "DATABRICKS_FILE_OVERWRITE": true,
+    "DATABRICKS_DBFS_PATH": "/FileStore/databricks/aml/",
+    "AZURE_MANAGEMENT_API": "https://management.core.windows.net/",
+    "AZURE_GLOBAL_DATABRICKS_APPLICATION": "2ff814a6-3304-4ab8-85cb-cd0e6f879c1d"
+}

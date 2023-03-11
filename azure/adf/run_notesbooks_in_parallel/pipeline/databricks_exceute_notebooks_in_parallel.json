@@ -1,0 +1,66 @@
+{
+    "name": "Databricks - Exceute Notebooks In Parallel",
+    "properties": {
+        "description": "This is a child pipeline to \"Databricks - Run list of notebooks orchestration\"",
+        "activities": [
+            {
+                "name": "ForEach Value in JSON Parameter",
+                "type": "ForEach",
+                "dependsOn": [],
+                "userProperties": [],
+                "typeProperties": {
+                    "items": {
+                        "value": "@pipeline().parameters.NotebooksJSONList",
+                        "type": "Expression"
+                    },
+                    "activities": [
+                        {
+                            "name": "Run Generic Notebook",
+                            "type": "DatabricksNotebook",
+                            "dependsOn": [],
+                            "policy": {
+                                "timeout": "7.00:00:00",
+                                "retry": 0,
+                                "retryIntervalInSeconds": 30,
+                                "secureOutput": false,
+                                "secureInput": false
+                            },
+                            "userProperties": [],
+                            "typeProperties": {
+                                "notebookPath": {
+                                    "value": "@item().NotebookPath",
+                                    "type": "Expression"
+                                },
+                                "baseParameters": {
+                                    "widgetJSONString": {
+                                        "value": "@item().ParametersJSON",
+                                        "type": "Expression"
+                                    }
+                                }
+                            },
+                            "linkedServiceName": {
+                                "referenceName": "AzureDatabricks",
+                                "type": "LinkedServiceReference",
+                                "parameters": {
+                                    "SparkClusterID": {
+                                        "value": "@item().ClusterID",
+                                        "type": "Expression"
+                                    }
+                                }
+                            }
+                        }
+                    ]
+                }
+            }
+        ],
+        "parameters": {
+            "NotebooksJSONList": {
+                "type": "array"
+            }
+        },
+        "folder": {
+            "name": "Databricks"
+        },
+        "annotations": []
+    }
+}

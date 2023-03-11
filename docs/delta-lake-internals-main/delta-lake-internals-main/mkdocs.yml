@@ -1,0 +1,425 @@
+site_name: The Internals of Delta Lake
+site_url: https://books.japila.pl/delta-lake-internals/
+site_author: Jacek Laskowski
+site_description: Demystifying inner-workings of Delta Lake
+
+repo_name: delta-lake-internals
+repo_url: https://github.com/japila-books/delta-lake-internals
+edit_uri: edit/main/docs/
+
+copyright: Copyright &copy; 2023 Jacek Laskowski
+
+theme:
+  name: material
+  language: en
+  icon:
+    logo: material/book-open-page-variant
+    repo: fontawesome/brands/github
+  features:
+    # https://squidfunk.github.io/mkdocs-material/reference/code-blocks/#adding-annotations
+    - content.code.annotate
+    # https://squidfunk.github.io/mkdocs-material/upgrade/#contentcodecopy
+    - content.code.copy
+    - navigation.indexes
+    - navigation.instant
+    # https://squidfunk.github.io/mkdocs-material/setup/setting-up-navigation/#navigation-path
+    - navigation.path
+    - navigation.tabs
+    - navigation.tabs.sticky
+    - navigation.top
+    - navigation.tracking
+    - search.highlight
+    - search.share
+    - search.suggest
+  palette:
+    - scheme: default
+      primary: indigo
+      accent: indigo
+      toggle:
+        icon: material/toggle-switch-off-outline
+        name: Switch to dark mode
+    - scheme: slate
+      primary: blue
+      accent: blue
+      toggle:
+        icon: material/toggle-switch
+        name: Switch to light mode
+
+markdown_extensions:
+  - admonition
+  - footnotes
+  - md_in_html
+  - toc:
+      permalink: true
+  - pymdownx.arithmatex
+  - pymdownx.betterem:
+      smart_enable: all
+  - pymdownx.caret
+  - pymdownx.critic
+  - pymdownx.details
+  - pymdownx.emoji:
+      emoji_index: !!python/name:materialx.emoji.twemoji
+      emoji_generator: !!python/name:materialx.emoji.to_svg
+  - pymdownx.inlinehilite
+  - pymdownx.magiclink
+  - pymdownx.mark
+  - pymdownx.smartsymbols
+  - pymdownx.superfences
+  - pymdownx.tasklist:
+      custom_checkbox: true
+  - pymdownx.tabbed:
+      alternate_style: true
+  - pymdownx.tilde
+
+plugins:
+  - search
+  - minify:
+      minify_html: true
+  - awesome-pages
+  - macros
+  # https://squidfunk.github.io/mkdocs-material/reference/#built-in-meta-plugin
+  - meta
+  # https://squidfunk.github.io/mkdocs-material/setup/setting-up-tags/
+  - tags:
+      enabled: !ENV [CI, false]
+      tags_extra_files:
+        developer-api.md:
+          - DeveloperApi
+
+extra:
+  analytics:
+    provider: google
+    property: !ENV GOOGLE_ANALYTICS_KEY
+  book:
+    title: Delta Lake
+    spark_sql: https://books.japila.pl/spark-sql-internals
+    structured_streaming: https://books.japila.pl/spark-structured-streaming-internals
+    spark_core: https://books.japila.pl/apache-spark-internals
+  delta:
+    version: 2.2.0
+    github: https://github.com/delta-io/delta/blob/v2.2.0
+    commit: https://github.com/delta-io/delta/commit
+    issues: https://github.com/delta-io/delta/issues
+  guava:
+    version: 16.0.1
+    api: https://guava.dev/releases/16.0.1/api/docs
+  hadoop:
+    version: 3.3.1
+    docs: https://hadoop.apache.org/docs/r3.3.1
+    api: https://hadoop.apache.org/docs/r3.3.1/api
+  jackson:
+    github: https://github.com/FasterXML/jackson
+    scala: https://github.com/FasterXML/jackson-module-scala
+  java:
+    api: https://docs.oracle.com/en/java/javase/17/docs/api/java.base
+  scala:
+    api: https://www.scala-lang.org/api/2.13.5
+    docs: https://docs.scala-lang.org/
+    spec: https://www.scala-lang.org/files/archive/spec/2.13
+  social:
+    - icon: fontawesome/brands/github
+      link: https://github.com/jaceklaskowski
+    - icon: fontawesome/brands/twitter
+      link: https://twitter.com/jaceklaskowski
+    - icon: fontawesome/brands/linkedin
+      link: https://linkedin.com/in/jaceklaskowski
+    - icon: fontawesome/brands/mastodon
+      link: https://fosstodon.org/@jaceklaskowski
+  spark:
+    version: 3.3.1
+    docs: https://spark.apache.org/docs/3.3.1
+  # https://squidfunk.github.io/mkdocs-material/setup/setting-up-tags/#tag-icons-and-identifiers
+  tags:
+    DeveloperApi: developerapi
+
+nav:
+  - Home: index.md
+  - Features:
+    - features/index.md
+    - Change Data Feed:
+      - change-data-feed/index.md
+      - CdcAddFileIndex: change-data-feed/CdcAddFileIndex.md
+      - CDCReader: change-data-feed/CDCReader.md
+      - DeltaSourceCDCSupport: change-data-feed/DeltaSourceCDCSupport.md
+      - IndexedChangeFileSeq: change-data-feed/IndexedChangeFileSeq.md
+      - TahoeRemoveFileIndex: change-data-feed/TahoeRemoveFileIndex.md
+    - CHECK Constraints:
+      - check-constraints/index.md
+      - AddConstraint: check-constraints/AddConstraint.md
+      - AlterTableAddConstraint: check-constraints/AlterTableAddConstraint.md
+      - AlterTableDropConstraint: check-constraints/AlterTableDropConstraint.md
+      - DropConstraint: check-constraints/DropConstraint.md
+    - Column Invariants:
+      - column-invariants/index.md
+      - Invariants: column-invariants/Invariants.md
+    - Column Mapping:
+      - column-mapping/index.md
+      - DeltaColumnMappingBase: column-mapping/DeltaColumnMappingBase.md
+      - DeltaColumnMappingMode: column-mapping/DeltaColumnMappingMode.md
+    - configuration-properties.md
+    - Data Skipping:
+      - data-skipping/index.md
+      - DataSkippingReaderBase: data-skipping/DataSkippingReaderBase.md
+      - DeltaScan: data-skipping/DeltaScan.md
+      - PreparedDeltaFileIndex: data-skipping/PreparedDeltaFileIndex.md
+      - PrepareDeltaScan: data-skipping/PrepareDeltaScan.md
+      - PrepareDeltaScanBase: data-skipping/PrepareDeltaScanBase.md
+    - developer-api.md
+    - Generated Columns:
+      - generated-columns/index.md
+      - GeneratedColumn: generated-columns/GeneratedColumn.md
+    - installation.md
+    - Table Constraints:
+      - constraints/index.md
+      - CheckDeltaInvariant: constraints/CheckDeltaInvariant.md
+      - Constraint: constraints/Constraint.md
+      - Constraints: constraints/Constraints.md
+      - DeltaInvariantChecker: constraints/DeltaInvariantChecker.md
+      - DeltaInvariantCheckerExec: constraints/DeltaInvariantCheckerExec.md
+      - DeltaInvariantCheckerStrategy: constraints/DeltaInvariantCheckerStrategy.md
+      - Invariant: constraints/Invariant.md
+      - InvariantViolationException: constraints/InvariantViolationException.md
+    - table-properties.md
+    - Time Travel:
+      - time-travel/index.md
+      - DeltaTimeTravelSpec: time-travel/DeltaTimeTravelSpec.md
+  - Internals:
+    - Overview: overview.md
+    - DeltaConfig: DeltaConfig.md
+    - DeltaConfigs: DeltaConfigs.md
+    - DeltaSQLConf: DeltaSQLConf.md
+    - DeltaTableIdentifier: DeltaTableIdentifier.md
+    - FileFormat:
+      - DeltaFileFormat: DeltaFileFormat.md
+      - DeltaParquetFileFormat: DeltaParquetFileFormat.md
+    - Transaction Log (DeltaLog):
+      - DeltaLog: DeltaLog.md
+      - Operation: Operation.md
+      - Checkpoints: Checkpoints.md
+      - CheckpointV2: CheckpointV2.md
+      - SnapshotManagement: SnapshotManagement.md
+      - ReadChecksum: ReadChecksum.md
+      - MetadataCleanup: MetadataCleanup.md
+      - VerifyChecksum: VerifyChecksum.md
+    - Optimistic Transactions:
+      - OptimisticTransaction: OptimisticTransaction.md
+      - OptimisticTransactionImpl: OptimisticTransactionImpl.md
+      - TransactionalWrite: TransactionalWrite.md
+      - DelayedCommitProtocol: DelayedCommitProtocol.md
+      - IsolationLevel: IsolationLevel.md
+      - Post-Commit Hooks:
+        - PostCommitHook: PostCommitHook.md
+        - GenerateSymlinkManifest: GenerateSymlinkManifest.md
+    - (State) Snapshot:
+      - Snapshot: Snapshot.md
+      - InMemoryLogReplay: InMemoryLogReplay.md
+      - PartitionFiltering: PartitionFiltering.md
+      - LogSegment: LogSegment.md
+    - DeltaHistoryManager: DeltaHistoryManager.md
+    - Storage:
+      - storage/index.md
+      - DelegatingLogStore: storage/DelegatingLogStore.md
+      - LogStore: storage/LogStore.md
+      - LogStoreAdaptor: storage/LogStoreAdaptor.md
+      - LogStoreProvider: storage/LogStoreProvider.md
+      - HadoopFileSystemLogStore: storage/HadoopFileSystemLogStore.md
+      - HDFSLogStore: storage/HDFSLogStore.md
+      - S3SingleDriverLogStore: storage/S3SingleDriverLogStore.md
+    - Actions:
+      - Action: Action.md
+      - AddCDCFile: AddCDCFile.md
+      - AddFile: AddFile.md
+      - CommitInfo: CommitInfo.md
+      - FileAction: FileAction.md
+      - Metadata: Metadata.md
+      - Protocol: Protocol.md
+      - RemoveFile: RemoveFile.md
+      - SetTransaction: SetTransaction.md
+      - SingleAction: SingleAction.md
+    - FileNames: FileNames.md
+    - Spark SQL Extensions:
+      - AppendDelta: AppendDelta.md
+      - DeltaAnalysis: DeltaAnalysis.md
+      - DeltaCatalog: DeltaCatalog.md
+      - DeltaSparkSessionExtension: DeltaSparkSessionExtension.md
+      - DeltaTableV2: DeltaTableV2.md
+      - DeltaUnsupportedOperationsCheck: DeltaUnsupportedOperationsCheck.md
+      - PreprocessTableDelete: PreprocessTableDelete.md
+      - PreprocessTableMerge: PreprocessTableMerge.md
+      - PreprocessTableRestore: PreprocessTableRestore.md
+      - PreprocessTableUpdate: PreprocessTableUpdate.md
+      - StagedDeltaTableV2: StagedDeltaTableV2.md
+    - File Indices:
+      - TahoeFileIndex: TahoeFileIndex.md
+      - PinnedTahoeFileIndex: PinnedTahoeFileIndex.md
+      - TahoeBatchFileIndex: TahoeBatchFileIndex.md
+      - TahoeLogFileIndex: TahoeLogFileIndex.md
+      - DeltaLogFileIndex: DeltaLogFileIndex.md
+  - Delta Data Source:
+    - DeltaDataSource: DeltaDataSource.md
+    - Options:
+      - Options: options.md
+      - DeltaOptions: DeltaOptions.md
+      - DeltaOptionParser: DeltaOptionParser.md
+      - DeltaReadOptions: DeltaReadOptions.md
+      - DeltaWriteOptions: DeltaWriteOptions.md
+      - DeltaWriteOptionsImpl: DeltaWriteOptionsImpl.md
+    - DeltaSource:
+      - AdmissionLimits: AdmissionLimits.md
+      - DeltaSource: DeltaSource.md
+      - DeltaSourceBase: DeltaSourceBase.md
+      - DeltaSourceOffset: DeltaSourceOffset.md
+      - DeltaSourceSnapshot: DeltaSourceSnapshot.md
+      - DeltaSourceUtils: DeltaSourceUtils.md
+      - SnapshotIterator: SnapshotIterator.md
+    - DeltaSink: DeltaSink.md
+    - WriteIntoDeltaBuilder: WriteIntoDeltaBuilder.md
+  - Developer API:
+    - DeltaTable: DeltaTable.md
+    - DeltaTableBuilder: DeltaTableBuilder.md
+    - DeltaColumnBuilder: DeltaColumnBuilder.md
+    - DeltaOptimizeBuilder: DeltaOptimizeBuilder.md
+    - Exceptions:
+      - exceptions/index.md
+      - ConcurrentAppendException: exceptions/ConcurrentAppendException.md
+      - ConcurrentDeleteDeleteException: exceptions/ConcurrentDeleteDeleteException.md
+      - ConcurrentDeleteReadException: exceptions/ConcurrentDeleteReadException.md
+      - ConcurrentTransactionException: exceptions/ConcurrentTransactionException.md
+      - ConcurrentWriteException: exceptions/ConcurrentWriteException.md
+      - DeltaConcurrentModificationException: exceptions/DeltaConcurrentModificationException.md
+      - DeltaErrors: DeltaErrors.md
+      - MetadataChangedException: exceptions/MetadataChangedException.md
+      - ProtocolChangedException: exceptions/ProtocolChangedException.md
+    - LogStore: LogStore.md
+  - Delta SQL:
+    - Delta SQL: sql/index.md
+    - DeltaSqlParser: sql/DeltaSqlParser.md
+    - DeltaSqlAstBuilder: sql/DeltaSqlAstBuilder.md
+  - Commands:
+    - commands/index.md
+    - DeltaCommand: commands/DeltaCommand.md
+    - ALTER TABLE:
+      - commands/alter/index.md
+      - AlterDeltaTableCommand: commands/alter/AlterDeltaTableCommand.md
+      - ADD COLUMNS: commands/alter/AlterTableAddColumnsDeltaCommand.md
+      - ADD CONSTRAINT: commands/alter/AlterTableAddConstraintDeltaCommand.md
+      - CHANGE COLUMN: commands/alter/AlterTableChangeColumnDeltaCommand.md
+      - AlterTableDropColumnsDeltaCommand: commands/alter/AlterTableDropColumnsDeltaCommand.md
+      - DROP CONSTRAINT: commands/alter/AlterTableDropConstraintDeltaCommand.md
+      - AlterTableReplaceColumnsDeltaCommand: commands/alter/AlterTableReplaceColumnsDeltaCommand.md
+      - AlterTableSetLocationDeltaCommand: commands/alter/AlterTableSetLocationDeltaCommand.md
+      - SET TBLPROPERTIES: commands/alter/AlterTableSetPropertiesDeltaCommand.md
+      - AlterTableUnsetPropertiesDeltaCommand: commands/alter/AlterTableUnsetPropertiesDeltaCommand.md
+    - Convert to Delta:
+      - commands/convert/index.md
+      - ConvertTargetTable: commands/convert/ConvertTargetTable.md
+      - ConvertToDeltaCommand: commands/convert/ConvertToDeltaCommand.md
+      - DeltaConvert: commands/convert/DeltaConvert.md
+      - FileManifest: commands/convert/FileManifest.md
+      - ManualListingFileManifest: commands/convert/ManualListingFileManifest.md
+      - MetadataLogFileManifest: commands/convert/MetadataLogFileManifest.md
+      - ParquetTable: commands/convert/ParquetTable.md
+    - CreateDeltaTableCommand: commands/CreateDeltaTableCommand.md
+    - Delete:
+      - commands/delete/index.md
+      - DeleteCommand: commands/delete/DeleteCommand.md
+      - DeltaDelete: commands/delete/DeltaDelete.md
+    - Describe Detail:
+      - commands/describe-detail/index.md
+      - DescribeDeltaDetailCommand: commands/describe-detail/DescribeDeltaDetailCommand.md
+    - Describe History:
+      - commands/describe-history/index.md
+      - DescribeDeltaHistoryCommand: commands/describe-history/DescribeDeltaHistoryCommand.md
+    - Generate:
+      - commands/generate/index.md
+      - DeltaGenerateCommand: commands/generate/DeltaGenerateCommand.md
+    - Merge:
+      - commands/merge/index.md
+      - DeltaMergeAction: commands/merge/DeltaMergeAction.md
+      - DeltaMergeBuilder: commands/merge/DeltaMergeBuilder.md
+      - DeltaMergeInto: commands/merge/DeltaMergeInto.md
+      - DeltaMergeIntoClause: commands/merge/DeltaMergeIntoClause.md
+      - DeltaMergeIntoDeleteClause: commands/merge/DeltaMergeIntoDeleteClause.md
+      - DeltaMergeIntoInsertClause: commands/merge/DeltaMergeIntoInsertClause.md
+      - DeltaMergeIntoMatchedClause: commands/merge/DeltaMergeIntoMatchedClause.md
+      - DeltaMergeIntoUpdateClause: commands/merge/DeltaMergeIntoUpdateClause.md
+      - DeltaMergeMatchedActionBuilder: commands/merge/DeltaMergeMatchedActionBuilder.md
+      - DeltaMergeNotMatchedActionBuilder: commands/merge/DeltaMergeNotMatchedActionBuilder.md
+      - JoinedRowProcessor: commands/merge/JoinedRowProcessor.md
+      - MergeIntoCommand: commands/merge/MergeIntoCommand.md
+    - Optimize:
+      - commands/optimize/index.md
+      - InterleaveBits: commands/optimize/InterleaveBits.md
+      - MultiDimClustering: commands/optimize/MultiDimClustering.md
+      - MultiDimClusteringFunctions: commands/optimize/MultiDimClusteringFunctions.md
+      - OptimizeExecutor: commands/optimize/OptimizeExecutor.md
+      - OptimizeMetrics: commands/optimize/OptimizeMetrics.md
+      - OptimizeStats: commands/optimize/OptimizeStats.md
+      - OptimizeTableCommand: commands/optimize/OptimizeTableCommand.md
+      - OptimizeTableCommandBase: commands/optimize/OptimizeTableCommandBase.md
+      - RangePartitionId: commands/optimize/RangePartitionId.md
+      - RangePartitionIdRewrite: commands/optimize/RangePartitionIdRewrite.md
+      - PartitionerExpr: commands/optimize/PartitionerExpr.md
+      - SpaceFillingCurveClustering: commands/optimize/SpaceFillingCurveClustering.md
+      - ZOrderClustering: commands/optimize/ZOrderClustering.md
+    - Restore:
+      - commands/restore/index.md
+      - RestoreTableCommand: commands/restore/RestoreTableCommand.md
+      - RestoreTableCommandBase: commands/restore/RestoreTableCommandBase.md
+      - RestoreTableStatement: commands/restore/RestoreTableStatement.md
+      - TimeTravel: commands/restore/TimeTravel.md
+    - Update:
+      - commands/update/index.md
+      - UpdateCommand: commands/update/UpdateCommand.md
+      - DeltaUpdateTable: commands/update/DeltaUpdateTable.md
+    - Vacuum:
+      - commands/vacuum/index.md
+      - VacuumCommand: commands/vacuum/VacuumCommand.md
+      - VacuumCommandImpl: commands/vacuum/VacuumCommandImpl.md
+      - VacuumTableCommand: commands/vacuum/VacuumTableCommand.md
+    - WriteIntoDelta: commands/WriteIntoDelta.md
+  - Demos:
+    - demo/index.md
+    - Change Data Feed: demo/change-data-feed.md
+    - Generated Columns: demo/generated-columns.md
+    - Column Mapping: demo/column-mapping.md
+    - Rolling Back Table Changes (Restore Command): demo/rolling-back-table-changes-restore-command.md
+    - Optimize: demo/optimize.md
+    - Data Skipping: demo/data-skipping.md
+    - Time Travel: demo/time-travel.md
+    - Vacuum: demo/vacuum.md
+    - dataChange: demo/dataChange.md
+    - replaceWhere: demo/replaceWhere.md
+    - Merge Operation: demo/merge-operation.md
+    - Converting Parquet Dataset Into Delta Format: demo/Converting-Parquet-Dataset-Into-Delta-Format.md
+    - Stream Processing of Delta Table: demo/stream-processing-of-delta-table.md
+    - Using Delta Lake as Streaming Sink in Structured Streaming: demo/Using-Delta-Lake-as-Streaming-Sink-in-Structured-Streaming.md
+    - Debugging Delta Lake Using IntelliJ IDEA: demo/Debugging-Delta-Lake-Using-IntelliJ-IDEA.md
+    - Observing Transaction Retries: demo/Observing-Transaction-Retries.md
+    - DeltaTable, DeltaLog And Snapshots: demo/DeltaTable-DeltaLog-And-Snapshots.md
+    - Schema Evolution: demo/schema-evolution.md
+    - User Metadata for Labelling Commits: demo/user-metadata-for-labelling-commits.md
+  - Misc:
+    - ColumnWithDefaultExprUtils: ColumnWithDefaultExprUtils.md
+    - ConflictChecker: ConflictChecker.md
+    - DeltaFileOperations: DeltaFileOperations.md
+    - DeltaJobStatisticsTracker: DeltaJobStatisticsTracker.md
+    - DeltaRelation: DeltaRelation.md
+    - DeltaScanGenerator: DeltaScanGenerator.md
+    - DeltaScanGeneratorBase: DeltaScanGeneratorBase.md
+    - DeltaTableOperations: DeltaTableOperations.md
+    - DeltaTableUtils: DeltaTableUtils.md
+    - ImplicitMetadataOperation: ImplicitMetadataOperation.md
+    - SchemaMergingUtils: SchemaMergingUtils.md
+    - SchemaUtils: SchemaUtils.md
+    - StateCache:
+      - StateCache: StateCache.md
+      - CachedDS: CachedDS.md
+    - StatisticsCollection: StatisticsCollection.md
+  - Monitoring:
+    - DeltaProgressReporter: DeltaProgressReporter.md
+    - DeltaLogging: DeltaLogging.md
+    - Logging: spark-logging.md
+    - SQLMetricsReporting: SQLMetricsReporting.md
+  - Contenders:
+    - Contenders: contenders/index.md

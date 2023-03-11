@@ -1,0 +1,19 @@
+{
+    "name": "AzureDatabricks",
+    "properties": {
+        "parameters": {
+            "SparkClusterID": {
+                "type": "string",
+                "defaultValue": "0213-075009-1v32kc3y"
+            }
+        },
+        "annotations": [],
+        "type": "AzureDatabricks",
+        "typeProperties": {
+            "domain": "https://adb-3131064551332330.10.azuredatabricks.net",
+            "authentication": "MSI",
+            "workspaceResourceId": "/subscriptions/d68ac44b-e87e-4a49-9077-d980f569bb00/resourceGroups/research_and_development/providers/Microsoft.Databricks/workspaces/dian_randd_databricksworkspace",
+            "existingClusterId": "@linkedService().SparkClusterID"
+        }
+    }
+}

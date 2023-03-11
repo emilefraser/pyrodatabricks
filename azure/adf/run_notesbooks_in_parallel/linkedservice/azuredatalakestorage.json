@@ -1,0 +1,16 @@
+{
+    "name": "AzureDataLakeStorage",
+    "properties": {
+        "parameters": {
+            "StorageAccountURL": {
+                "type": "string",
+                "defaultValue": "https://dianrandddatalake.dfs.core.windows.net/"
+            }
+        },
+        "annotations": [],
+        "type": "AzureBlobFS",
+        "typeProperties": {
+            "url": "@{linkedService().StorageAccountURL}"
+        }
+    }
+}

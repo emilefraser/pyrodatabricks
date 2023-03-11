@@ -1,0 +1,1 @@
+DESC EXTENDED dbname.table

@@ -1,0 +1,1 @@
+%sh head /tmp/curl-subway.csv

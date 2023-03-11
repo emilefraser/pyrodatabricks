@@ -1,0 +1,163 @@
+{
+    "name": "Databricks - Run list of notebooks orchestration",
+    "properties": {
+        "activities": [
+            {
+                "name": "Lookup Databricks Notebook List",
+                "description": "This activity will perform the lookup to a source dataset that contains the full list of Databricks notebook paths that need to be executed. ",
+                "type": "Lookup",
+                "dependsOn": [],
+                "policy": {
+                    "timeout": "7.00:00:00",
+                    "retry": 0,
+                    "retryIntervalInSeconds": 30,
+                    "secureOutput": false,
+                    "secureInput": false
+                },
+                "userProperties": [],
+                "typeProperties": {
+                    "source": {
+                        "type": "ExcelSource",
+                        "storeSettings": {
+                            "type": "AzureBlobFSReadSettings",
+                            "recursive": true,
+                            "enablePartitionDiscovery": false
+                        }
+                    },
+                    "dataset": {
+                        "referenceName": "AzureDataLake_Excel_Generic",
+                        "type": "DatasetReference",
+                        "parameters": {
+                            "FileSystem": "config",
+                            "Directory": "DataFactoryConfig",
+                            "FileName": "DataFactory_DatabricksNotebooks_ConfigList.xlsx"
+                        }
+                    },
+                    "firstRowOnly": false
+                }
+            },
+            {
+                "name": "ForEach Sequence",
+                "description": "For each sequence, trigger another pipeline that will loop through the notebooks of that sequence and execute them all in parallel. ",
+                "type": "ForEach",
+                "dependsOn": [
+                    {
+                        "activity": "Set NotebookSequenceList Array Variable",
+                        "dependencyConditions": [
+                            "Succeeded"
+                        ]
+                    }
+                ],
+                "userProperties": [],
+                "typeProperties": {
+                    "items": {
+                        "value": "@variables('NotebookSequenceList')",
+                        "type": "Expression"
+                    },
+                    "isSequential": true,
+                    "activities": [
+                        {
+                            "name": "Set Current Sequence Variable",
+                            "type": "SetVariable",
+                            "dependsOn": [],
+                            "userProperties": [],
+                            "typeProperties": {
+                                "variableName": "CurrentSequence",
+                                "value": {
+                                    "value": "@item().Sequence",
+                                    "type": "Expression"
+                                }
+                            }
+                        },
+                        {
+                            "name": "Filter Notebooks List to Current Sequence",
+                            "type": "Filter",
+                            "dependsOn": [
+                                {
+                                    "activity": "Set Current Sequence Variable",
+                                    "dependencyConditions": [
+                                        "Succeeded"
+                                    ]
+                                }
+                            ],
+                            "userProperties": [],
+                            "typeProperties": {
+                                "items": {
+                                    "value": "@activity('Lookup Databricks Notebook List').output.value",
+                                    "type": "Expression"
+                                },
+                                "condition": {
+                                    "value": "@equals(item().Sequence, variables('CurrentSequence'))",
+                                    "type": "Expression"
+                                }
+                            }
+                        },
+                        {
+                            "name": "Execute Databricks - Run Notebooks In Parallel",
+                            "type": "ExecutePipeline",
+                            "dependsOn": [
+                                {
+                                    "activity": "Filter Notebooks List to Current Sequence",
+                                    "dependencyConditions": [
+                                        "Succeeded"
+                                    ]
+                                }
+                            ],
+                            "userProperties": [],
+                            "typeProperties": {
+                                "pipeline": {
+                                    "referenceName": "Databricks - Exceute Notebooks In Parallel",
+                                    "type": "PipelineReference"
+                                },
+                                "waitOnCompletion": true,
+                                "parameters": {
+                                    "NotebooksJSONList": {
+                                        "value": "@activity('Filter Notebooks List to Current Sequence').output.value",
+                                        "type": "Expression"
+                                    }
+                                }
+                            }
+                        }
+                    ]
+                }
+            },
+            {
+                "name": "Set NotebookSequenceList Array Variable",
+                "description": "This is a substitute for having the list of sequences in which the notebooks need to be executed in a third party source. ",
+                "type": "SetVariable",
+                "dependsOn": [
+                    {
+                        "activity": "Lookup Databricks Notebook List",
+                        "dependencyConditions": [
+                            "Succeeded"
+                        ]
+                    }
+                ],
+                "userProperties": [],
+                "typeProperties": {
+                    "variableName": "NotebookSequenceList",
+                    "value": {
+                        "value": "@json('[{\"Sequence\": \"1\"},{\"Sequence\": \"2\"}]')",
+                        "type": "Expression"
+                    }
+                }
+            }
+        ],
+        "variables": {
+            "NotebookSequenceList": {
+                "type": "Array"
+            },
+            "Test": {
+                "type": "String",
+                "defaultValue": "0"
+            },
+            "CurrentSequence": {
+                "type": "String"
+            }
+        },
+        "folder": {
+            "name": "Databricks"
+        },
+        "annotations": []
+    }
+}

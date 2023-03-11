@@ -1,0 +1,1 @@
+dbc/tech_talks/use_sql_query_with_delta_lake/
