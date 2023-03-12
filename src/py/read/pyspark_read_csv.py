@@ -1,10 +1,3 @@
-# -*- coding: utf-8 -*-
-"""
-Created on Sat Jun 13 21:08:30 2020
-
-@author: NNK
-"""
-
 import pyspark
 from pyspark.sql import SparkSession
 from pyspark.sql.types import StructType,StructField, StringType, IntegerType 

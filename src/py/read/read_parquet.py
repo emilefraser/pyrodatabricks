@@ -1,2 +1,1 @@
-spark.read
-  .parquet("path/file.parquet")
+spark.read.parquet("path/file.parquet")

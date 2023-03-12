@@ -1,0 +1,1 @@
+DESCRIBE DATABASE lms_bronze;
