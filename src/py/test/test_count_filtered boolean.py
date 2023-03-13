@@ -1,0 +1,1 @@
+assert spark.table("beans").filter("delicious=true").count() == 5, "There should be 5 delicious beans in your table"

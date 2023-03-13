@@ -1,0 +1,1 @@
+assert spark.table("beans").count() == 6, "The table should have 6 records"

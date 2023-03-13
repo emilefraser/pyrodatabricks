@@ -1,0 +1,1 @@
+assert spark.table("beans"), "Table named `beans` does not exist"

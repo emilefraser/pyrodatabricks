@@ -1,4 +1,4 @@
-CREATE TEMP VIEW updates(id, name, value, type)
+CREATE VIEW updates(id, name, value, type)
 AS 
 VALUES
   (2, "Omar", 15.2, "update"),

@@ -1,41 +1,4 @@
-SHOW DATABASES;
 
-DROP TABLE IF EXISTS lms_bronze.users;
-
-CREATE TABLE IF NOT EXISTS lms_bronze.users (
-    user_id INT,
-    user_fname STRING,
-    user_lname STRING,
-    last_op CHAR(1)
-);
-
-INSERT INTO lms_bronze.users VALUES
-    (1, 'Scott', 'Tiger', 'I'),
-    (2, 'Joe', 'Clarke', 'I'),
-    (3, 'Mickey', 'Mouse', 'I');
-
-DROP TABLE IF EXISTS lms_silver.users;
-CREATE TABLE IF NOT EXISTS lms_silver.users (
-    user_id INT,
-    user_fname STRING,
-    user_lname STRING,
-    last_op CHAR(1)
-);
-
-USE lms_bronze; SHOW tables;
-USE lms_silver; SHOW tables;
-
-SELECT * FROM lms_bronze.users;
-
-MERGE INTO lms_silver.users AS lsu
-    USING lms_bronze.users AS lbu
-        ON lsu.user_id = lbu.user_id
-    WHEN MATCHED AND lbu.last_op = 'U' THEN
-        UPDATE SET *
-    WHEN MATCHED AND lbu.last_op = 'D' THEN
-        DELETE
-    WHEN NOT MATCHED THEN
-        INSERT *;
         
 SELECT * FROM lms_silver.users;
 

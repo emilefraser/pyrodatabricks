@@ -1,0 +1,1 @@
+display(dbutils.fs.ls(f"{DA.paths.user_db}/students"))
