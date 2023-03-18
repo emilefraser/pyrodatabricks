@@ -1,0 +1,2 @@
+ANALYZE TABLE no_part_table 
+COMPUTE STATISTICS FOR COLUMNS timestamp
