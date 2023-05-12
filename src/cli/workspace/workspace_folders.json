@@ -1,0 +1,11 @@
+{
+    "workspace":
+    {
+        "folders": [
+            {
+                "type": "DIRECTORY",
+                "path": "/path/to/file"
+            }
+        ]
+    }
+}
