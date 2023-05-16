@@ -1,0 +1,1 @@
+products_df = spark.table("products")

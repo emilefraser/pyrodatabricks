@@ -1,0 +1,1 @@
+LOAD DATA [ LOCAL ] INPATH path [ OVERWRITE ] INTO TABLE table_name [ PARTITION clause ]

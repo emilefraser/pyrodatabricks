@@ -1,0 +1,1 @@
+dbutils.fs.mv("file:/tmp/curl-subway.csv", "dbfs:/tmp/subway.csv")

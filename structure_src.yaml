@@ -1,0 +1,26 @@
+- src
+  - _core
+    - define: "core artefacts relating to technology"
+    - scope: "technology"
+    - verosity: "mandatory"
+    - stragegy: "included in template"
+  - _common
+    - define: "highly frequent used artefacts relating to repo/all projects"
+    - scope: "repo"
+    - verosity: "suggested"
+    - strategy: "included in template"
+  - _includes
+    - define: "optional artefacts relating to all projects"
+    - scope: "repo"
+    - verosity: "optional"
+    - stategy: "copied into repo"
+  - _shared
+    - define: "shared artefacts across projects"
+    - scope: "project"
+    - verosity: "when_needed"
+    - stategy: "move from project to shared"
+  - _external
+    - define: "artefacts imported from external providers"
+    - scope: "project"
+    - verosity: "when_needed"
+    - stategy: "add when project needs"

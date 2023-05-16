@@ -1,0 +1,1 @@
+dbutils.widgets.remove('fruits_combobox')

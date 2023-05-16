@@ -1,0 +1,1 @@
+ ALTER TABLE T SET TBLPROPERTIES(numerickey = 14, 'booleankey' = false);

@@ -1,0 +1,1 @@
+INSERT OVERWRITE students TABLE visiting_students;

@@ -1,0 +1,52 @@
+version: 1
+formatters:
+  # https://docs.python.org/3/library/logging.html#logrecord-attributes
+  default:
+    datefmt: "%Y-%m-%d %H:%M:%S"
+    format: "%(asctime)s.%(msecs)03d : %(name)s : %(module)s.%(funcName)s line %(lineno)d : %(levelname)s : %(message)s"
+    
+  sql_server:
+
+    datefmt: "%Y-%m-%d %H:%M:%S"
+    format: "%(asctime)s.%(msecs)03d, %(name)s, %(module)s.%(funcName)s line %(lineno)d, %(levelname)s, %(message)s"
+
+handlers:
+
+  console:
+
+    class: logging.StreamHandler
+    level: DEBUG
+    formatter: default
+    stream: ext://sys.stdout
+
+  sql_server:
+    # requires this table as configured in this configuration
+    # create table [ops].[application_log]
+    # (
+    #     [id] int IDENTITY(1,1) NOT NULL,
+    #     [name] varchar(100) NOT NULL,
+    #     [created_at] datetime NOT NULL,
+    #     [module_function] varchar(500) NOT NULL,
+    #     [level] varchar(500) NOT NULL,
+    #     [message] varchar(500) NOT NULL,
+    #     CONSTRAINT pk_ops_application_log_id PRIMARY KEY CLUSTERED (id)
+    # )
+    class: loggingdemo.sql_server_handler.SqlServerHandler
+    level: DEBUG
+    formatter: sql_server
+    # parameter place holders must align with the sql_server comma separated string
+    log_record_delimiter: ","
+    sql: "INSERT INTO ops.application_log(created_at, name, module_function, level, message)
+          VALUES (?,?,?,?,?)"
+
+    connection_string: DRIVER={ODBC Driver 17 for SQL Server};SERVER=dataplatform-sql.database.windows.net;DATABASE=deng_ctrl_db;UID=application_logging;PWD=blahblahblah
+
+root:
+  level: DEBUG
+  handlers: [sql_server, console]
+
+loggers:
+  additional_logger:
+    level: DEBUG
+    handlers: [console]
+    propogate: no

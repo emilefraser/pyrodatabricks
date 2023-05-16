@@ -1,0 +1,13 @@
+{
+"changes":[
+    {
+      "principal":"account users",
+      "add":[
+        "CREATE_EXTERNAL_LOCATION",
+        "CREATE_EXTERNAL_TABLE",
+        "READ_FILES",
+        "WRITE_FILES"
+      ]
+    }
+  ]
+}

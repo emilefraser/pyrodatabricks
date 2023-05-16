@@ -1,0 +1,1 @@
+RESTORE TABLE students TO VERSION AS OF 8 
