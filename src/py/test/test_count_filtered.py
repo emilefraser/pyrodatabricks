@@ -1,1 +1,0 @@
-assert spark.table("beans").filter("name='pinto'").count() == 1, "There should only be 1 entry for pinto beans"

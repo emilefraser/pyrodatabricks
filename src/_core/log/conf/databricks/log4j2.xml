@@ -1,50 +1,50 @@
 <?xml version="1.0" encoding="UTF-8"?><Configuration status="INFO" packages="com.databricks.logging" shutdownHook="disable">
   <Appenders>
-    <RollingFile name="publicFile.rolling" fileName="logs/log4j-active.log" filePattern="logs/log4j-%d{yyyy-MM-dd-HH}.log.gz" immediateFlush="true" bufferedIO="false" bufferSize="8192" createOnDemand="true">
+    <RollingFile name="publicFile.rolling" fileName="logs/log4j-active.log" filePattern="logs/log4j-%d{yyyy-MM-dd-HH}.log.gz" immediateFlush="true" bufferedIO="true" bufferSize="8192" createOnDemand="true">
       <Policies>
         <TimeBasedTriggeringPolicy/>
       </Policies>
-      <PatternLayout pattern="[spark][%d{yyyy-MM-dd HH:mm:ss}][%p][%c][%m]%n"/>
+      <PatternLayout pattern="[%d{yyyy-MM-dd HH:mm:ss}][%p][%c][%location][%line]%m%n"/>
     </RollingFile>
     <Rewrite name="publicFile.rolling.rewrite">
       <ServiceRewriteAppender/>
       <AppenderRef ref="publicFile.rolling"/>    
     </Rewrite>
-    <RollingFile name="privateFile.rolling" fileName="logs/active.log" filePattern="logs/%d{yyyy-MM-dd-HH}.log.gz" immediateFlush="true" bufferedIO="false" bufferSize="8192" createOnDemand="true">
+    <RollingFile name="privateFile.rolling" fileName="logs/active.log" filePattern="logs/%d{yyyy-MM-dd-HH}.log.gz" immediateFlush="true" bufferedIO="true" bufferSize="8192" createOnDemand="true">
       <Policies>
         <TimeBasedTriggeringPolicy/>
       </Policies>
-      <PatternLayout pattern="[spark][%d{yyyy-MM-dd HH:mm:ss}][%p][%c][%m]%n"/>
+      <PatternLayout pattern="[%d{yyyy-MM-dd HH:mm:ss}][%p][%c][%location][%line]%m%n"/>
     </RollingFile>
     <Rewrite name="privateFile.rolling.rewrite">
       <ServiceRewriteAppender/>
       <AppenderRef ref="privateFile.rolling"/>
     </Rewrite>
-    <RollingFile name="com.databricks.UsageLogging.appender" fileName="logs/usage.json" filePattern="logs/%d{yyyy-MM-dd-HH}.usage.json.gz" immediateFlush="true" bufferedIO="false" bufferSize="8192" createOnDemand="true">
+    <RollingFile name="com.databricks.UsageLogging.appender" fileName="logs/usage.json" filePattern="logs/%d{yyyy-MM-dd-HH}.usage.json.gz" immediateFlush="true" bufferedIO="true" bufferSize="8192" createOnDemand="true">
       <Policies>
         <TimeBasedTriggeringPolicy/>
       </Policies>
       <PatternLayout pattern="%m%n%ex"/>
     </RollingFile>
-    <RollingFile name="com.databricks.ProductLogging.appender" fileName="logs/product.json" filePattern="logs/%d{yyyy-MM-dd-HH}.product.json.gz" immediateFlush="true" bufferedIO="false" bufferSize="8192" createOnDemand="true">
+    <RollingFile name="com.databricks.ProductLogging.appender" fileName="logs/product.json" filePattern="logs/%d{yyyy-MM-dd-HH}.product.json.gz" immediateFlush="true" bufferedIO="true" bufferSize="8192" createOnDemand="true">
       <Policies>
         <TimeBasedTriggeringPolicy/>
       </Policies>
       <PatternLayout pattern="%m%n%ex"/>
     </RollingFile>
-    <RollingFile name="com.databricks.LineageLogging.appender" fileName="logs/lineage.json" filePattern="logs/%d{yyyy-MM-dd-HH}.lineage.json.gz" immediateFlush="true" bufferedIO="false" bufferSize="8192" createOnDemand="true">
+    <RollingFile name="com.databricks.LineageLogging.appender" fileName="logs/lineage.json" filePattern="logs/%d{yyyy-MM-dd-HH}.lineage.json.gz" immediateFlush="true" bufferedIO="true" bufferSize="8192" createOnDemand="true">
       <Policies>
         <TimeBasedTriggeringPolicy/>
       </Policies>
       <PatternLayout pattern="%m%n%ex"/>
     </RollingFile>
-    <RollingFile name="com.databricks.MetricsLogging.appender" fileName="logs/metrics.json" filePattern="logs/%d{yyyy-MM-dd-HH}.metrics.json.gz" immediateFlush="true" bufferedIO="false" bufferSize="8192" createOnDemand="true">
+    <RollingFile name="com.databricks.MetricsLogging.appender" fileName="logs/metrics.json" filePattern="logs/%d{yyyy-MM-dd-HH}.metrics.json.gz" immediateFlush="true" bufferedIO="true" bufferSize="8192" createOnDemand="true">
       <Policies>
         <TimeBasedTriggeringPolicy/>
       </Policies>
       <PatternLayout pattern="%m%n%ex"/>
     </RollingFile>
-    <RollingFile name="dltExecution.rolling" fileName="logs/dlt-execution.log" filePattern="logs/dlt-execution-%d{yyyy-MM-dd-HH}.log.gz" immediateFlush="true" bufferedIO="false" bufferSize="8192" createOnDemand="true">
+    <RollingFile name="dltExecution.rolling" fileName="logs/dlt-execution.log" filePattern="logs/dlt-execution-%d{yyyy-MM-dd-HH}.log.gz" immediateFlush="true" bufferedIO="true" bufferSize="8192" createOnDemand="true">
       <Policies>
         <TimeBasedTriggeringPolicy/>
       </Policies>

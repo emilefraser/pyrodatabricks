@@ -1,1 +1,0 @@
-SELECT * FROM beans VERSION AS OF 1

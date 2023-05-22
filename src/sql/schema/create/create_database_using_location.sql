@@ -1,1 +1,0 @@
-CREATE DATABASE IF NOT EXISTS lms_gold LOCATION 'dbfs:/user/hive/warehouse/lms_gold.db';

@@ -1,1 +1,0 @@
-spark.conf.get("spark.sql.shuffle.partitions")

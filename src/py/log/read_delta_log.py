@@ -1,1 +1,0 @@
-display(spark.read.json(f"{DA.paths.user_db}/bronze/_delta_log/00000000000000000000.json"))

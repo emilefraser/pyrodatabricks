@@ -14,7 +14,7 @@ do
     #curr_item=${curr_item//"'"/""}
     curr_return=$(databricks workspace list -l --absolute $curr_item)
     curr_grep=$(echo "${curr_return}" | grep -oP "(?<=DIRECTORY  ).*$" )
-    #curr_arr=$("${curr_grep}" |  
+    #curr_arr=$("${curr_grep}" | sed -e  "s/\(.*\)/'\1'/")
     #curr_arr=$(echo $curr_arr | tr -d '\n' )
     SAVEIFS="$IFS"
     IFS=$'\n'
